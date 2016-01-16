@@ -1,0 +1,26 @@
+{
+  "name": "client",
+  "description": "",
+  "main": "gulpfile.js",
+  "authors": [
+    "andy_chen"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/chen4342024/NodeBlog",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "underscore": "~1.8.3",
+    "bootstrap": "~3.3.6",
+    "angular": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "angular-mocks": "~1.4.8"
+  }
+}

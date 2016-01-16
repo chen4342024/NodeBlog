@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <!-- build:css styles/all.min.css -->
+    <!-- inject:css -->
+    <link rel="stylesheet" type="text/css" href="app/account/account.css" />
+    <link rel="stylesheet" type="text/css" href="app/linkScene/linkScene.css" />
+    <link rel="stylesheet" type="text/css" href="app/main/main.css" />
+    <link rel="stylesheet" type="text/css" href="app/share/share.css" />
+    <link rel="stylesheet" type="text/css" href="app/welcome/welcome.css" />
+    <link rel="stylesheet" type="text/css" href="app/linkScene/guide/detail/detail.css" />
+    <link rel="stylesheet" type="text/css" href="common/directives/audioPlayer/audioPlayer.css" />
+    <link rel="stylesheet" type="text/css" href="common/directives/audioPlayer/audioPlayer.css" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+    <!-- endinject -->
+    <!-- /build -->
+
+    <!-- ionic/angularjs js -->
+    <script src="cordova.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/ionic-audio/dist/ion-audio.js"></script>
+    <script src="lib/ibeacon/ng-cordova-beacon.min.js"></script>
+
+    <!-- build:js js/all.min.js -->
+    <!-- inject:js -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="app/route.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="app/account/account.js"></script>
+    <script type="text/javascript" src="app/account/ali.js"></script>
+    <script type="text/javascript" src="app/iframe/iframe.js"></script>
+    <script type="text/javascript" src="app/main/main.js"></script>
+    <script type="text/javascript" src="app/share/share.js"></script>
+    <script type="text/javascript" src="app/welcome/welcome.js"></script>
+    <script type="text/javascript" src="app/account/address/address.js"></script>
+    <script type="text/javascript" src="app/account/editInfo/editInfo.js"></script>
+    <script type="text/javascript" src="app/account/info/info.js"></script>
+    <script type="text/javascript" src="app/linkScene/detail/linkSceneDetail.js"></script>
+    <script type="text/javascript" src="app/linkScene/download/download.js"></script>
+    <script type="text/javascript" src="app/linkScene/exhibit/exhibit.js"></script>
+    <script type="text/javascript" src="app/linkScene/list/linkScene.js"></script>
+    <script type="text/javascript" src="app/linkScene/start/linkSceneStart.js"></script>
+    <script type="text/javascript" src="app/account/editInfo/editSex/sexPanel.js"></script>
+    <script type="text/javascript" src="app/linkScene/guide/detail/detail.js"></script>
+    <script type="text/javascript" src="common/services/authen.service.js"></script>
+    <script type="text/javascript" src="common/services/download.service.js"></script>
+    <script type="text/javascript" src="common/services/linkScene.service.js"></script>
+    <script type="text/javascript" src="common/services/service.js"></script>
+    <script type="text/javascript" src="common/services/store.service.js"></script>
+    <script type="text/javascript" src="common/services/variate.constant.js"></script>
+    <script type="text/javascript" src="common/util/util.js"></script>
+    <script type="text/javascript" src="common/directives/audioPlayer/audioPlayer.js"></script>
+    <script type="text/javascript" src="common/directives/iframeOnload/iframeOnload.js"></script>
+    <!-- endinject -->
+    <!-- /build -->
+</head>
+<body ng-app="myApp">
+<!--
+  The nav bar that will be updated as we navigate between views.
+-->
+<!--<ion-nav-bar class="bar-stable">
+  <ion-nav-back-button>
+  </ion-nav-back-button>
+</ion-nav-bar>-->
+<!--
+  The views will be rendered in the <ion-nav-view> directive below
+  Templates are in the /templates folder (but you could also
+  have templates inline in this html file if you'd like).
+-->
+<ion-nav-view></ion-nav-view>
+</body>
+</html>
