@@ -2,4 +2,4 @@ var gulp = require('gulp');
 
 
 
-require("./src/build/main");
+require("./build/main");

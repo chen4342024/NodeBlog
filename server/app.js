@@ -1,138 +1,75 @@
 var express = require('express');
-var port = 3000;
 var path = require('path');
-var mongoose = require('mongoose');
-var _ = require('underscore');
-mongoose.connect("mongodb://localhost/movieDemo");
-var Movie = require('./models/movie');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+
+var db = require('./db'),
+    routes = require('./routes/index'),
+    users = require('./routes/users'),
+    articles = require('./routes/articles');
+    //tags = require('./routes/tag'),
+    //comments = require('./routes/comment');
+    //comments = require('./routes/category');
+
 var app = express();
-var bodyParser = require("body-parser");
 
 // view engine setup
-app.set('views', path.join(__dirname, "./views/pages"));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(bodyParser.urlencoded({extended: true}));
-//app.use(express.static(path.join(__dirname, 'bower_components')));
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.listen(port);
 
-app.get("/", function (req, res) {
-    Movie. fetch(function (err, movies) {
-        if (err) {
-            console.log(err);
-        }
-        res.render('index', {
-            title : "",
-            movies: movies
-        })
-    })
+app.use('/', routes);
+app.use('/api/users', users);
+app.use('/api/articles', articles);
 
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
-app.get("/movie/:id", function (req, res) {
-    var id = req.params.id;
-    Movie.findById(id, function (err, movie) {
-        if (err) {
-            console.log(err);
-        }
-        res.render('detail', {
-            title: movie.title,
-            movie: movie
-        })
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error  : err
+        });
     });
+}
 
-});
-app.get("/admin/movie", function (req, res) {
-    res.render('admin', {
-        title: "andy_chen 后台录入页",
-        movie: {
-            doctor  : "",
-            country : "",
-            title   : "",
-            year    : '',
-            poster  : "",
-            language: '',
-            flash   : "",
-            summary : ""
-        }
-    })
+// production error handler
+// no stacktraces leaked to user
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error  : {}
+    });
 });
 
-//admin updata movie
-app.get('/admin/update/:id', function (req, res) {
-    var id = req.params.id;
-    if (id) {
-        Movie.findById(id, function (err, movie) {
-            res.render('admin', {
-                title: "andy_chen 更新电影页",
-                movie: movie
-            })
-        })
-    }
-});
-
-//admin post movie
-app.post('/admin/movie/new', function (req, res) {
-    var id = req.body.movie._id;
-    var movieObj = req.body.movie;
-    var _movie;
-    if (id !== 'undefined') {
-        Movie.findById(id, function (err, movie) {
-            if (err) {
-                console.log(err);
-            }
-            _movie = _.extend(movie, movieObj);
-            _movie.save(function (err, movie) {
-                if (err) {
-                    console.log(err);
-                }
-                res.redirect('/movie/' + movie._id);
-            })
-        })
-    } else {
-        _movie = new Movie({
-            doctor  : movieObj.doctor,
-            title   : movieObj.title,
-            language: movieObj.language,
-            country : movieObj.country,
-            summary : movieObj.summary,
-            poster  : movieObj.poster,
-            year    : movieObj.year,
-            flash   : movieObj.flash
-        });
-        _movie.save(function (err, movie) {
-            if (err) {
-                console.log(err);
-            }
-            res.redirect('/movie/' + movie._id);
-        });
-    }
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    res.header("X-Powered-By", ' 3.2.1');
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
 });
 
 
-
-app.get("/admin/list", function (req, res) {
-    Movie.fetch(function (err, movies) {
-        if (err) {
-            console.log(err);
-        }
-        res.render('list', {
-            title : "andy_chen 列表页",
-            movies: movies
-        })
-    })
-
-});
-
-app.delete('/admin/list', function (req, res) {
-    var id = req.query.id;
-    if (id) {
-        Movie.remove({_id: id}, function (err, movie) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json({success: 1});
-            }
-        })
-    }
-});
 module.exports = app;
