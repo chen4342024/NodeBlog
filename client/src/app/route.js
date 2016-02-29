@@ -4,18 +4,25 @@ angular.module('myApp').config(function ($stateProvider, $urlRouterProvider) {
         .state('info', {
             url        : '/info',
             controller : 'InfoCtrl',
-            templateUrl: 'personal.info/info.tpl.html'
+            templateUrl: 'app/personal.info/info.tpl.html'
         })
         .state('admin/user', {
             url        : '/admin/user',
             templateUrl: 'admin/user/user.tpl.html'
         })
+        .state('article/:id', {
+            url        : '/article/:id',
+            templateUrl: 'app/article/article.tpl.html'
+        })
+        .state('index', {
+            url        : '/index',
+            templateUrl: 'app/index/index.tpl.html'
+        })
+        .state('workbench',{
+            url:'/workbench',
+            templateUrl:'app/workbench/workbench.tpl.html'
+        })
     ;
-    if (!window.localStorage['first']) {
-        $urlRouterProvider.otherwise('/welcome');
-    } else {
-        // $urlRouterProvider.otherwise('/tab/index');
-        $urlRouterProvider.otherwise('/tab/main');
-    }
+    $urlRouterProvider.otherwise('/index');
 })
 ;

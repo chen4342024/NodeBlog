@@ -1,0 +1,64 @@
+.home-btn {
+  background: url("/assets/images/iconfont-home.png") no-repeat 50% 50%;
+  background-size: 80%;
+  border: 1px solid #258fb8;
+  box-shadow: #258fb8;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 30px;
+  top: 15px;
+}
+.article-container {
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+.author-info {
+  border-bottom: 1px solid #eeeeee;
+  padding: 10px;
+  color: #999999;
+}
+.author-info .avatar {
+  float: left;
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+.author-info .avatar > img {
+  width: 100%;
+  height: 100%;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.author-info .author-name {
+  color: #075b8d;
+}
+.article-content .title {
+  word-break: break-all;
+  font-size: 32px;
+  font-weight: bold;
+  line-height: 1.5;
+}
+.article-content .meta-top {
+  margin: 15px 0 20px;
+  color: #999999;
+  -webkit-text-size-adjust: none;
+  font-size: 0;
+}
+.article-content .meta-top > span {
+  font-size: 12px;
+  padding: 0 10px;
+  border-left: 1px solid #ccc;
+}
+.article-content .meta-top > span:first-child {
+  padding-left: 0;
+  border: none;
+}
+.article-content .article-detail {
+  color: #2f2f2f;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.7;
+}

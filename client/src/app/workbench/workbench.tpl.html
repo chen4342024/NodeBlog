@@ -1,0 +1,42 @@
+<div class="container-fluid full-height" ng-controller="WorkbenchCtrl">
+    <div class="row full-height">
+        <div class="col-md-2 full-height categorys-container">
+            <a href="javascript:void(0)" class="add-category" ng-click="updateCategory({})">新建目录</a>
+            <div>
+                <form name="categoryForm" novalidate='novalidate' ng-submit="submitCategory()">
+                    <input type="text" name="name" class="form-control" required placeholder="请输入分类名" ng-model="formCategory.name"/>
+                    <span class="error" ng-show="categoryForm.name.$error.required">分类名必填</span><br>
+                    <input class="btn btn-default" type="button" value="取消">
+                    <input class="btn btn-success" type="submit" value="确认">
+                </form>
+            </div>
+            <ul class="category-list">
+                <li ng-repeat="category in categorys|orderBy:displayOrder" ng-click="choseCategory(category)">
+                    <p>{{category.name}}</p>
+                    <span class="glyphicon glyphicon-trash" ng-click="deleteCategory(category._id)"></span>
+                    <span class="glyphicon glyphicon-edit" ng-click="updateCategory(category)"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3 full-height articles-edit-container">
+            <a href="#" class="add-category" ng-click="addOrUpdateArticle(true)">新建文章</a>
+
+            <ul class="article-edit-list list-unstyled">
+                <li ng-repeat="article in articles|orderBy:time" ng-class="checkIsActive(article)" ng-click="choseArticle(article)">
+                    <p>{{article.title}}</p>
+                    <span class="glyphicon glyphicon-trash" ng-click="deleteArticle(article._id)"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-7 full-height editor-container padding-0">
+            <input type="text" class="form-control title-input" ng-model="activeArticle.title"/>
+            <div class="ueditor" config="config" ng-model="activeArticle.content"></div>
+            <div>
+                <button class="btn btn-success" ng-click="publishArticle()">发布文章</button>
+                <button class="btn btn-primary" ng-click="addOrUpdateArticle(false)">保存</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
