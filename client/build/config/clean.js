@@ -1,12 +1,11 @@
 "use strict";
 var gulp = require('gulp'),
-  del = require('del');
-
-var setting = {
-  clean: ['www']
-};
+    del = require('del'),
+    setting = require('./setting');
+var clean = require('gulp-clean');
 
 
 gulp.task('clean', function () {
-  return del(setting.clean);
+    return gulp.src(setting.dest + '*', {read: false})
+        .pipe(clean({force: true}));
 });

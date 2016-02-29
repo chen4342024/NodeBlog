@@ -2,14 +2,11 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var _ = require('underscore');
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-    res.send('respond with user a resource');
-});
+
 
 //获取用户信息
 router.get('/:id', function (req, res, next) {
-    User.get(req.params.id, function (err, user) {
+    User.getById(req.params.id, function (err, user) {
         if (err)
             return res.send({error: err});
         res.send(user);
@@ -17,7 +14,7 @@ router.get('/:id', function (req, res, next) {
 });
 
 //获取用户列表
-router.get('/list', function (req, res, next) {
+router.get('/', function (req, res, next) {
     var options = {
         page  : 0,
         count : 10

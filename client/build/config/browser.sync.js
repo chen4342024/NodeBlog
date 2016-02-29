@@ -1,11 +1,8 @@
 var gulp = require('gulp');
-var browserSync = require('browser-sync');
-gulp.task('browser-sync', function() {
-  browserSync({
-    files: "**",
-    server: {
-      baseDir: "./src/www/"
-    }
-  });
+var browserSync = require('browser-sync').create();
+gulp.task('browser-sync', function () {
+    browserSync.init({
+        proxy:'http://localhost:3000'
+    });
 });
 

@@ -8,7 +8,7 @@ var _ = require('underscore');
 //});
 
 router.get("/", function (req, res) {
-    res.send('index', {
+    res.render('index', {
         title : "Movie"
     })
 });

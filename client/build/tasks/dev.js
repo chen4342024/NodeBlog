@@ -7,6 +7,7 @@ gulp.task("dev", ['clean'], function (cb) {
     runSequence(
         ['inject'],
         ['copy'],
+        ['watch'],
         cb
     );
 });

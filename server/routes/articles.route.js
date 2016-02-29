@@ -2,14 +2,10 @@ var express = require('express'),
     router = express.Router(),
     Article = require('../models/article'),
     Category = require('../models/category'),
-     _ = require('underscore');
+    _ = require('underscore');
 
-/* GET users listing. */
+
 router.get('/', function (req, res, next) {
-    res.send('respond with articles a resource');
-});
-
-router.get('/list', function (req, res, next) {
     var filter = {};
     if (req.query.filters) {
         filter = JSON.parse(req.query.filters);
@@ -35,9 +31,11 @@ router.get('/list', function (req, res, next) {
             return res.send({error: err});
         Article.count({}, function (err, total) {
             if (err)
-                return res.send({error: err});
+                console.log(err);
             res.send({
-                rows      : articles,
+                success   : !err,
+                error     : err,
+                data      : articles,
                 pagination: {
                     count: parseInt(req.query.count),
                     page : parseInt(req.query.page),
@@ -49,7 +47,7 @@ router.get('/list', function (req, res, next) {
     });
 });
 
-router.post('/new', function (req, res, next) {
+router.post('/', function (req, res, next) {
     var id = req.body.article._id;
     var articleObj = req.body.article;
     var _article;
@@ -64,7 +62,9 @@ router.post('/new', function (req, res, next) {
                     console.log(err);
                 }
                 res.send({
-                    success:true
+                    success: !err,
+                    data   : article,
+                    error  : err
                 });
             })
         })
@@ -75,22 +75,36 @@ router.post('/new', function (req, res, next) {
             coverImgPath   : articleObj.coverImgPath,
             content        : articleObj.content,
             publish        : articleObj.publish,
+            category       : articleObj.category,
             readingQuantity: 0,
             favor          : 0,
-            enabled : true
+            enabled        : true
         });
         _article.save(function (err, article) {
             if (err) {
                 console.log(err);
             }
             res.send({
-                success:true,
-                data:article
+                success: !err,
+                data   : article,
+                error  : err
             });
         });
     }
 });
 
+router.delete('/:id', function (req, res, next) {
+    var id = req.params.id;
+    if (id) {
+        Article.delete(id, function (err) {
+            var success = !err;
+            res.send({
+                success: success,
+                error  : err
+            });
+        });
+    }
+});
 
 
 module.exports = router;
