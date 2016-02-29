@@ -1,0 +1,136 @@
+.full-height {
+  height: 100%;
+}
+.index-container {
+  margin-right: 0;
+  padding-right: 0;
+}
+.user-panel {
+  background: url("/assets/images/bg.jpg") no-repeat;
+  height: 100%;
+  background-size: cover;
+}
+.user-info {
+  text-align: right;
+  padding-top: 100px;
+}
+.avatar {
+  border: 1px solid #FCF1C4;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+}
+.filter-list {
+  display: inline-block;
+}
+.user-detail {
+  color: #FCF1C4;
+  padding: 15px;
+  padding-left: 30%;
+}
+.achievement {
+  color: #FCF1C4;
+  padding-left: 40%;
+}
+.achievement .achievement-item {
+  border-left: 1px solid #fff;
+}
+.achievement .achievement-item:first-child {
+  border: none;
+}
+.achievement .achievement-item p {
+  margin-bottom: 0;
+}
+.achievement .achievement-item .item-num {
+  font-style: italic;
+  font-size: 16px;
+}
+.write-article {
+  width: 40%;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.articles-container {
+  overflow-y: auto;
+}
+.articles-container .article-list {
+  padding-top: 80px;
+}
+.articles-container .article-list > li {
+  border-top: 1px dotted #ccc;
+  padding: 15px 0;
+}
+.articles-container .article-list .readingNum {
+  font-size: 12px;
+  border-left: 1px solid #ccc;
+  padding: 0 7px;
+}
+.articles-container .article-list .readingNum:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+.filter-list {
+  position: fixed;
+  padding: 15px;
+  z-index: 2;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+.filter-list .btn {
+  margin-right: 5px;
+}
+.filter-container {
+  position: absolute;
+  z-index: 1;
+  padding-top: 65px;
+}
+.tag-container {
+  height: 100%;
+  width: 80%;
+}
+.tag {
+  color: #fff;
+  height: 18px;
+  line-height: 18px;
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+  border-radius: 0 5px 5px 0;
+  box-sizing: content-box;
+  font-size: 18px;
+  float: left;
+  margin: 15px 20px;
+  min-width: 60px;
+  text-align: center;
+  border: none;
+}
+.tag:before {
+  width: 0;
+  height: 0;
+  top: 0;
+  border: 9px solid transparent;
+  left: -38px;
+  border-width: 19px;
+  border-right-color: inherit;
+}
+.tag:after {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+  top: 15px;
+  left: -6px;
+  width: 8px;
+  height: 8px;
+}
+.tag:before,
+.tag:after {
+  content: " ";
+  position: absolute;
+}

@@ -1,0 +1,9 @@
+mongod --logpath E:\mongo\logs\mongodb.log --logappend --dbpath E:\mongo\data\db --directoryperdb --serviceName MongoDB -install
+
+mongod --logpath E:\mongo\logs\mongodb.log --logappend --dbpath E:\mongo\data\db --serviceName MongoDB -install
+
+mongod --remove --serviceName "MongoDB"
+
+net start MongoDB
+
+net stop MongoDB

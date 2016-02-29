@@ -1,0 +1,24 @@
+.full-height {
+  height: 100%;
+}
+.padding-0 {
+  padding: 0;
+}
+.categorys-container {
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.articles-edit-container {
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.articles-edit-container .article-edit-list > .active {
+  background: #985f0d;
+}
+.editor-container {
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+.title-input {
+  border: none;
+}

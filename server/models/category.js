@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
 
 var categorySchema = new mongoose.Schema({
     name: String,
-    displayOrder: Number
+    displayOrder: Number,
+    user         : {type: Number, ref: 'User'}
 }, {versionKey: false});
 
 categorySchema.plugin(autoIncrement.plugin, {model: 'Category', startAt: 1});
