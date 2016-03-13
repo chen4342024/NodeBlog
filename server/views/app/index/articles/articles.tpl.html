@@ -1,0 +1,21 @@
+<div >
+    <!--infinite-scroll="reddit.nextPage()" infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='3'-->
+    <ul class="article-list col-md-10 list-unstyled" >
+        <li ng-repeat="article in reddit.items">
+            <div>
+                <p><span>{{article.time.update | date:'yyyy-MM-dd'}}</span></p>
+                <h4 class="font-weight" ng-click="goToArticleDetail(article._id)"><strong>{{article.title}}</strong></h4>
+                <!--<h6>文章简介，介绍12咯123就2类库就2咯就立刻2级123了</h6>-->
+                <p>
+                    <span class="readingNum">阅读:{{article.readingQuantity}}</span>
+                    <span class="readingNum">评论:{{article.comment.length}}</span>
+                    <span class="readingNum">喜欢:{{article.favor}}</span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <button ladda="reddit.busy" class="btn btn-default btn-lg" data-style="zoom-out" ng-click="reddit.nextPage()" data-spinner-color="#398439" data-spinner-size="30">点击加载更多</button>
+        </li>
+    </ul>
+
+</div>

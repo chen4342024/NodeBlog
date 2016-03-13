@@ -1,8 +1,8 @@
 "use strict";
 angular.module('app.controllers')
     .controller('WorkbenchCtrl', [
-        '$scope', 'AppConfig', 'CategoryService', 'ArticleService',
-        function ($scope, AppConfig, CategoryService, ArticleService) {
+        '$scope', 'AppConfig', 'CategoryService', 'ArticleService', '$uibModal', '$log', 'SweetAlert', 'CustomUtil',
+        function ($scope, AppConfig, CategoryService, ArticleService, $uibModal, $log, SweetAlert, CustomUtil) {
             $scope.ueditorHeight = document.body.clientHeight - 65 - 103;
             $scope.config = {
                 serverUrl         : AppConfig.WEB_API_ROOT + "ue/uploads",
@@ -37,28 +37,33 @@ angular.module('app.controllers')
                 $scope.activeCategory = category;
                 $scope.loadArticleList();
             };
+            $scope.checkIsActiveCategory = function (category) {
+                return ($scope.activeCategory && $scope.activeCategory._id == category._id) ? "active" : "";
+            };
 
             $scope.submitCategory = function () {
-                if ($scope.categoryForm.$invalid) {
-                    alert("提交出错，请检查信息");
-                }
                 CategoryService.insertOrUpdate($scope.formCategory).then(function () {
                     freshAllCategory();
                 });
             };
             $scope.updateCategory = function (category) {
                 $scope.formCategory = category;
+                $scope.openEditModel(false);
             };
             $scope.deleteCategory = function (id) {
-                CategoryService.delete(id).then(function () {
-                    freshAllCategory();
+                SweetAlert.confirmDelete(function (isConfirm) {
+                    if (isConfirm) {
+                        CategoryService.delete(id).then(function () {
+                            freshAllCategory();
+                        });
+                    }
                 });
             };
 
             //文章
             $scope.loadArticleList = function () {
                 var params = {
-                    fields : '_id,name',
+                    fields : '_id,title',
                     filters: {
                         category: $scope.activeCategory._id
                     }
@@ -82,7 +87,14 @@ angular.module('app.controllers')
                 ArticleService.insertOrUpdate($scope.activeArticle).then(function (response) {
                     if (response.success) {
                         var newArticle = response.data;
-                        $scope.articles.splice(0, 0, newArticle);
+                        if (isNew) {
+                            $scope.articles.splice(0, 0, newArticle);
+                        } else {
+                            CustomUtil.replace($scope.articles, newArticle, function (v) {
+                                return v._id === newArticle._id;
+                            });
+                            SweetAlert.success("保存成功");
+                        }
                     }
                 })
             };
@@ -92,25 +104,74 @@ angular.module('app.controllers')
                 ArticleService.insertOrUpdate($scope.activeArticle).then(function (response) {
                     if (response.success) {
                         var newArticle = response.data;
-                        $scope.articles.splice(0, 0, newArticle);
+                        CustomUtil.replace($scope.articles, newArticle, function (v) {
+                            return v._id === newArticle._id;
+                        });
+                        SweetAlert.success("发布成功");
                     }
                 })
             };
 
             $scope.deleteArticle = function (id) {
-                ArticleService.delete(id).then(function () {
-                    $scope.loadArticleList();
+                SweetAlert.confirmDelete(function (isConfirm) {
+                    if (isConfirm) {
+                        ArticleService.delete(id).then(function () {
+                            $scope.loadArticleList();
+                        });
+                    }
                 });
             };
 
             $scope.choseArticle = function (article) {
-                $scope.activeArticle = article;
+                var id = article._id;
+                ArticleService.getById(id).then(function (response) {
+                    if (response.success) {
+                        $scope.activeArticle = response.data;
+                    }
+                });
             };
 
             $scope.checkIsActive = function (article) {
-                return ($scope.activeArticle && $scope.activeArticle._id == article._id) ? "active": "";
+                return ($scope.activeArticle && $scope.activeArticle._id == article._id) ? "active" : "";
             };
 
             init();
+
+            $scope.openEditModel = function (size, isNew) {
+                var modalInstance = $uibModal.open({
+                    animation  : true,
+                    templateUrl: 'myModalContent.html',
+                    controller : 'ModalInstanceCtrl',
+                    size       : size,
+                    resolve    : {
+                        formCategory: function () {
+                            return $scope.formCategory;
+                        },
+                        title       : function () {
+                            return isNew ? "新建目录" : "编辑目录";
+                        }
+                    }
+                });
+                modalInstance.result.then(function (formCategory) {
+                    $scope.formCategory = formCategory;
+                    $scope.submitCategory();
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            };
         }]
-    );
+    )
+    .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, formCategory, title) {
+        $scope.formCategory = formCategory;
+        $scope.title = title;
+        $scope.ok = function () {
+            if ($scope.categoryForm.$invalid) {
+                alert("提交出错，请检查信息");
+            } else {
+                $uibModalInstance.close($scope.formCategory);
+            }
+        };
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    });

@@ -2,11 +2,11 @@
     <div class="col-md-3 user-panel full-height" ng-include="'/app/layout/userinfo.tpl.html'"></div>
     <div class="col-md-9 full-height articles-container">
         <div class="row filter-list col-md-7">
-            <div class=" col-md-8">
-                <button type="button" class="btn btn-primary">热门</button>
-                <button type="button" class="btn btn-success">推荐</button>
-                <button type="button" class="btn btn-info" ng-click="changeTemplate(templateList.CATEGORYS)">分类</button>
-                <button type="button" class="btn btn-warning" ng-click="changeTemplate(templateList.TAGS)">标签</button>
+            <div class="col-md-8">
+                <button ng-repeat="filter in filters" type="button" class="btn "
+                        ng-class="{true: 'btn-info', false: 'btn-default'}[activeFilter == $index]"
+                        ng-click="filter.handler($index)">{{filter.title}}
+                </button>
             </div>
             <div class="col-md-3">
                 <div class="input-group ">

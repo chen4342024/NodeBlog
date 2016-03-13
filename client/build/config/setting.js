@@ -14,6 +14,13 @@ var setting = {
             lib + "ueditor/ueditor.all.js",
             lib + "ueditor/lang/zh-cn/zh-cn.js",
             lib + "angular-ueditor/dist/angular-ueditor.js",
+            lib + "angular-bootstrap/ui-bootstrap.js",
+            lib + "angular-bootstrap/ui-bootstrap-tpls.js",
+            lib + "sweetalert/dist/sweetalert-dev.js",
+            lib + "ngInfiniteScroll/build/ng-infinite-scroll.js",
+            lib + "ladda/dist/spin.min.js",
+            lib + "ladda/dist/ladda.min.js",
+            lib + "angular-ladda/dist/angular-ladda.js",
         ],
         app   : [
             root + 'app/app.js',
@@ -29,10 +36,14 @@ var setting = {
     },
     css : [
         lib + "bootstrap/dist/css/bootstrap.css",
+        lib + "angular-bootstrap/ui-bootstrap-csp.css",
+        lib + "sweetalert/dist/sweetalert.css",
+        lib + "ladda/dist/ladda-themeless.min.css",
         root + 'admin/**/*.css',
         root + 'app/**/*.css',
         root + 'common/**/*.css',
-        root + 'styles/**/*.css'
+        root + 'styles/**/*.css',
+
     ],
 
     html: [

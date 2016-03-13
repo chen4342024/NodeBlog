@@ -8,20 +8,25 @@ var express = require('express'),
 router.get('/', function (req, res, next) {
     var filter = {};
     if (req.query.filters) {
-        filter = JSON.parse(req.query.filters);
-        if (filter.title == '' || !filter.title) {
-            delete filter.title;
-        } else {
-            filter.title = new RegExp(filter.title, "i");
+        var filterObj = JSON.parse(req.query.filters);
+        if (filterObj.title && filterObj.title != '') {
+            filter.title = new RegExp(filterObj.title, "i");
         }
-        filter.category ? filter.category = parseInt(filter.category) : delete filter.category;
-        filter.tags ? filter.tags = parseInt(filter.tags) : delete filter.tags;
+        if (filterObj.publish) {
+            filter.publish = true;
+        }
+        if (filterObj.category) {
+            filter.category = parseInt(filterObj.category)
+        }
+        if (filterObj.tags) {
+            filter.tags = parseInt(filterObj.tags)
+        }
     }
     var options = {
         filter: filter,
         sortBy: req.query.sortBy,
-        page  : req.query.page - 1,
-        count : req.query.count
+        page  : parseInt(req.query.page) - 1,
+        count : parseInt(req.query.count)
     };
     if (req.query.fields) {
         options.fields = req.query.fields.split(',').join(' ');
@@ -43,6 +48,16 @@ router.get('/', function (req, res, next) {
                     size : total
                 }
             });
+        });
+    });
+});
+
+router.get('/:id', function (req, res, next) {
+    Article.getById(req.params.id, function (err, article) {
+        res.send({
+            success: !err,
+            data   : article,
+            error  : err
         });
     });
 });

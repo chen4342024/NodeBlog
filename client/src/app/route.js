@@ -10,7 +10,7 @@ angular.module('myApp').config(function ($stateProvider, $urlRouterProvider) {
             url        : '/admin/user',
             templateUrl: 'admin/user/user.tpl.html'
         })
-        .state('article/:id', {
+        .state('article/detail', {
             url        : '/article/:id',
             templateUrl: 'app/article/article.tpl.html'
         })
